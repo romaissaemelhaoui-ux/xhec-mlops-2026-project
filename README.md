@@ -46,6 +46,18 @@ cd xhec-mlops-2026-project
 make install   # creates .venv with all dependencies and installs the pre-commit hooks
 ```
 
+Download the dataset into `data/` (requires a [Kaggle API token](https://www.kaggle.com/docs/api#authentication)):
+
+```bash
+make data
+```
+
+The notebooks in `notebooks/` (EDA and first model) use the project's `.venv` as kernel. Experiments are tracked with MLflow; to see them:
+
+```bash
+make mlflow-ui   # then open http://127.0.0.1:5001
+```
+
 To run the code quality checks (ruff linting/formatting and other pre-commit hooks):
 
 ```bash
