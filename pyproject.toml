@@ -16,6 +16,7 @@ dependencies = [
     "prefect>=3.9.0",
     "pydantic>=2.14.1",
     "scikit-learn>=1.9.1",
+    "sqlalchemy<2.1",  # Prefect 3.9 scheduler fails with SQLAlchemy 2.1
 ]
 
 [dependency-groups]
