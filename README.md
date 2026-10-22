@@ -58,6 +58,24 @@ Train the model and save it to `src/web_service/local_objects/model.pkl`:
 make train
 ```
 
+The training is a [Prefect](https://docs.prefect.io/) flow (`src/modelling/main.py`): each step (load data, split, train, evaluate, save the model) is a Prefect task.
+
+### Regular retraining with Prefect
+
+1. Start the Prefect server, then open the UI at http://127.0.0.1:4200:
+
+   ```bash
+   make prefect-server
+   ```
+
+2. In a second terminal, start the deployment that retrains the model every Monday at midnight (UTC):
+
+   ```bash
+   make deploy
+   ```
+
+3. In the UI, go to **Deployments → train-model/weekly-retraining**. Click **Run → Quick run** to retrain now, and follow the flow and task runs in **Runs**.
+
 The notebooks in `notebooks/` (EDA and first model) use the project's `.venv` as kernel. Experiments are tracked with MLflow; to see them:
 
 ```bash
