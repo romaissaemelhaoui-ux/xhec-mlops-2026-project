@@ -85,3 +85,11 @@ secrets/*
 
 # Mac files
 .DS_Store
+
+# Dataset (downloaded with `make data`)
+data/
+
+# MLflow tracking data
+mlruns/
+mlartifacts/
+mlflow.db
