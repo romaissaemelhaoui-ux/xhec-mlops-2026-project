@@ -11,12 +11,14 @@ authors = [
 description = "X-HEC MLOps Project on Abalone age prediction model"
 requires-python = ">=3.11,<3.12"
 dependencies = [
+    "fastapi>=0.150.0",
     "mlflow>=3.17.2",
     "pandas>=3.0.6",
     "prefect>=3.9.0",
     "pydantic>=2.14.1",
     "scikit-learn>=1.9.1",
     "sqlalchemy<2.1",  # Prefect 3.9 scheduler fails with SQLAlchemy 2.1
+    "uvicorn>=0.54.0",
 ]
 
 [dependency-groups]
