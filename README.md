@@ -52,6 +52,12 @@ Download the dataset into `data/` (requires a [Kaggle API token](https://www.kag
 make data
 ```
 
+Train the model and save it to `src/web_service/local_objects/model.pkl`:
+
+```bash
+make train
+```
+
 The notebooks in `notebooks/` (EDA and first model) use the project's `.venv` as kernel. Experiments are tracked with MLflow; to see them:
 
 ```bash

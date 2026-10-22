@@ -93,3 +93,6 @@ data/
 mlruns/
 mlartifacts/
 mlflow.db
+
+# Trained model (generated with `make train`)
+src/web_service/local_objects/*.pkl
