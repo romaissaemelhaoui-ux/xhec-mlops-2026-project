@@ -4,6 +4,7 @@ import argparse
 from pathlib import Path
 
 from predicting import predict
+from prefect import flow
 from preprocessing import load_data, split_features_target
 from sklearn.metrics import root_mean_squared_error
 from sklearn.model_selection import train_test_split
@@ -13,6 +14,7 @@ from utils import pickle_object
 MODEL_PATH = Path(__file__).parents[1] / "web_service" / "local_objects" / "model.pkl"
 
 
+@flow(name="train-model", log_prints=True)
 def main(trainset_path: Path) -> None:
     """Train a model using the data at the given path and save it (pickle)."""
     df = load_data(trainset_path)
