@@ -2,7 +2,7 @@
 
 # MLOps Project: Abalone Age Prediction
 
-[![Python Version](https://img.shields.io/badge/python-3.10%20or%203.11-blue.svg)]()
+[![Python Version](https://img.shields.io/badge/python-3.11-blue.svg)]()
 [![Linting: ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/charliermarsh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![Pre-commit](https://img.shields.io/badge/pre--commit-enabled-informational?logo=pre-commit&logoColor=white)](https://github.com/artefactory/xhec-mlops-project-student/blob/main/.pre-commit-config.yaml)
 </div>
@@ -17,7 +17,7 @@ Welcome to your MLOps project! In this hands-on project, you'll build a complete
 
 Traditionally, determining an abalone's age requires:
 1. Cutting the shell through the cone
-2. Staining it 
+2. Staining it
 3. Counting rings under a microscope (very time-consuming!)
 
 **Your Goal**: Use easier-to-obtain physical measurements (shell weight, diameter, etc.) to predict the age automatically.
@@ -25,36 +25,74 @@ Traditionally, determining an abalone's age requires:
 📥 **Download**: Get the dataset from the [Kaggle page](https://www.kaggle.com/datasets/rodolfomendes/abalone-dataset)
 
 
+## 👤 Team
+
+| Name | GitHub |
+|---|---|
+| Romaissa Emelhaoui | [@romaissaemelhaoui-ux](https://github.com/romaissaemelhaoui-ux) |
+
 ## 🚀 Quick Start
 
 ### Prerequisites
-- GitHub account
+- Python 3.11
+- [uv](https://docs.astral.sh/uv/)
 - [Kaggle account](https://www.kaggle.com/account/login?phase=startRegisterTab&returnUrl=%2F) (for dataset download)
-- Python 3.10 or 3.11
 
-### Setup Steps
+### Setup
 
-1. **Fork this repository** 
-   - ⚠️ **Important**: Uncheck "Copy the `main` branch only" to get all project branches
-   
-2. **Add your team members** as admins to your forked repository
+```bash
+git clone https://github.com/romaissaemelhaoui-ux/xhec-mlops-2026-project.git
+cd xhec-mlops-2026-project
+make install   # creates .venv with all dependencies and installs the pre-commit hooks
+```
 
-3. **Set up your development environment**:
+Download the dataset into `data/` (requires a [Kaggle API token](https://www.kaggle.com/docs/api#authentication)):
+
+```bash
+make data
+```
+
+Train the model and save it to `src/web_service/local_objects/model.pkl`:
+
+```bash
+make train
+```
+
+The training is a [Prefect](https://docs.prefect.io/) flow (`src/modelling/main.py`): each step (load data, split, train, evaluate, save the model) is a Prefect task.
+
+### Regular retraining with Prefect
+
+1. Start the Prefect server, then open the UI at http://127.0.0.1:4200:
+
    ```bash
-   # Create and activate a virtual environment
-   uv sync 
-   source venv/bin/activate # on Windows: venv\Scripts\activate
-
-   # Install pre-commit hooks for code quality
-    uv pip install pre-commit
-    uv run pre-commit install
+   make prefect-server
    ```
+
+2. In a second terminal, start the deployment that retrains the model every Monday at midnight (UTC):
+
+   ```bash
+   make deploy
+   ```
+
+3. In the UI, go to **Deployments → train-model/weekly-retraining**. Click **Run → Quick run** to retrain now, and follow the flow and task runs in **Runs**.
+
+The notebooks in `notebooks/` (EDA and first model) use the project's `.venv` as kernel. Experiments are tracked with MLflow; to see them:
+
+```bash
+make mlflow-ui   # then open http://127.0.0.1:5001
+```
+
+To run the code quality checks (ruff linting/formatting and other pre-commit hooks):
+
+```bash
+make lint
+```
 
 ## 📋 What You'll Build
 
 By the end of this project, you'll have created:
 
-### 🤖 **Automated ML Pipeline** 
+### 🤖 **Automated ML Pipeline**
 - Training workflows using Prefect
 - Automatic model retraining on schedule
 - Reproducible model and data processing
@@ -67,7 +105,7 @@ By the end of this project, you'll have created:
 ### 📊 **Production-Ready Code**
 - Clean, well-documented code
 - Automated testing and formatting
-- Proper error handling 
+- Proper error handling
 
 ## 📝 How to Work on This Project
 
@@ -102,7 +140,7 @@ git push
 
 Then:
 1. 📖 Read the PR_i.md file carefully
-2. 💻 Complete all the TODOs in the code  
+2. 💻 Complete all the TODOs in the code
 3. 🔧 Test your changes
 4. 📤 Open **ONE** pull request to your main branch
 5. ✅ Merge the pull request
@@ -147,16 +185,16 @@ uv sync
 
 Your project will be evaluated on:
 
-### 🔍 **Code Quality** 
+### 🔍 **Code Quality**
 - Clean, readable code structure
-- Proper naming conventions  
+- Proper naming conventions
 - Good use of docstrings and type hints
 
 ### 🎨 **Code Formatting**
 - Consistent style (automated with pre-commit)
 - Professional presentation
 
-### ⚙️ **Functionality** 
+### ⚙️ **Functionality**
 - Code runs without errors
 - All requirements implemented correctly
 
@@ -177,10 +215,10 @@ When you're done, your repository should contain:
 
 ✅ **Automated Training Pipeline**
 - [ ] Prefect workflows for model training
-- [ ] Separate modules for training and inference  
+- [ ] Separate modules for training and inference
 - [ ] Reproducible model and encoder generation
 
-✅ **Automated Deployment**  
+✅ **Automated Deployment**
 - [ ] Prefect deployment for regular retraining
 
 ✅ **Production API**

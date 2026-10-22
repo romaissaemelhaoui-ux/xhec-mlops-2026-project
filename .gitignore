@@ -85,3 +85,14 @@ secrets/*
 
 # Mac files
 .DS_Store
+
+# Dataset (downloaded with `make data`)
+data/
+
+# MLflow tracking data
+mlruns/
+mlartifacts/
+mlflow.db
+
+# Trained model (generated with `make train`)
+src/web_service/local_objects/*.pkl
