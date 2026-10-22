@@ -1,6 +1,7 @@
 """Build and train the model."""
 
 import pandas as pd
+from prefect import task
 from sklearn.compose import ColumnTransformer
 from sklearn.linear_model import LinearRegression
 from sklearn.pipeline import Pipeline
@@ -16,6 +17,7 @@ def build_pipeline() -> Pipeline:
     return Pipeline([("preprocessor", preprocessor), ("model", LinearRegression())])
 
 
+@task
 def train_model(X: pd.DataFrame, y: pd.Series) -> Pipeline:
     """Fit the pipeline (encoder + model) on the training data."""
     pipeline = build_pipeline()
