@@ -45,6 +45,7 @@ Dataset: [Abalone dataset on Kaggle](https://www.kaggle.com/datasets/rodolfomend
 │       ├── lib/inference.py     # run the model on the API input
 │       ├── utils.py             # load pickled objects
 │       └── local_objects/       # trained model (model.pkl)
+├── tests/                       # pytest tests of the API and the training code
 ├── bin/run_services.sh          # starts the API and the Prefect server in the container
 ├── Dockerfile.app
 └── Makefile                     # all the commands below
@@ -135,8 +136,9 @@ make mlflow-ui   # then open http://127.0.0.1:5001
 
 ```bash
 make lint   # ruff linting/formatting and other pre-commit hooks
+make test   # pytest tests: API answers and validation, data cleaning, model training
 ```
 
-The same checks run in the GitHub Actions CI (`.github/workflows/ci.yaml`) on every push and pull request.
+The same checks and tests run in the GitHub Actions CI (`.github/workflows/ci.yaml`) on every push and pull request.
 
 Dependencies are managed with uv in `pyproject.toml` and locked in `uv.lock`. To add one: `uv add <package>`.

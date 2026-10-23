@@ -5,6 +5,9 @@ install:
 lint:
 	uv run pre-commit run --all-files
 
+test:
+	uv run pytest
+
 data:
 	uv run kaggle datasets download rodolfomendes/abalone-dataset -p data --unzip
 
@@ -29,4 +32,4 @@ docker-run:
 mlflow-ui:
 	uv run mlflow ui --backend-store-uri sqlite:///mlflow.db --port 5001
 
-.PHONY: install lint data train prefect-server deploy api docker-build docker-run mlflow-ui
+.PHONY: install lint test data train prefect-server deploy api docker-build docker-run mlflow-ui
